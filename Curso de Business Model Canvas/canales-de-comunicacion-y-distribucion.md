@@ -1,0 +1,4 @@
+- ¿A través de qué canales / medios se conectará y se atenderá a los clientes?
+- ¿Cómo podemos llegar a ellos?
+- ¿Qué canales funcionan mejor?
+- ¿Cómo te conocerá y evaluará, y cómo decidirá, comprará y recibirá soporte post-venta tu segmento de clientes?
