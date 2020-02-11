@@ -1,0 +1,111 @@
+## Contenedores
+
+Los contenedores son el concepto fundamentalal hablar de docker. Un contenedor es una entidad lógica, una agrupación de procesos que se ejecutan de forma nativa como cualquier otra aplicación en la máquina host.
+
+Un contenedor ejecuta sus procesos de forma nativa
+
+
+## Explorar el estado de docker
+
+Vamos a conocer algunos trucos de nuestra consola para explorar el estado del docker
+
+-    docker ps = lista los contenedores
+-    docker ps -a = lista contenedores a detalles
+-    docker ps -aq = lista solo los ID de los contenedores (la q significa quiet, tranquilo o silencioso)
+-    docker inspect id_contenedor = detalles internos del contenedor
+-    docker inspect nombre_contenedor = lo mismo que el anterior
+-    docker inspect -f {{}} nombre_contenedor = filtra una variable especifico del contenedor
+-    docker rm nombre_contenedor = elimina un contenedor
+-    docker rm -f nombre_contenedor = para si esta arriba y elimina el contenedor. Fuerza la eliminación del contenedor
+-    docker rm $(docker ps -aq) = borra TODOS los contenedores
+-    docker logs nombre_contenedor = muestra los logs del contenedor
+-    docker run -it nombre_contenedor = Ejecutar un contenedor en modo interactivo.
+	* -t = Asignar un pseudo-tty
+	* -i = Mantén el STDIN abierto incluso si no esta conectado
+-    docker exec -it nombre_contenedor comando = Ejecuta un comando en un contenedor
+-    docker kill nombre_contenedor = mata el proceso completo
+
+
+## Exponiendo contenedores al mundo exterior
+
+Los contenedores están aislados del sistema y a nivel de red, cada contenedor tiene su propia stack de net y sus propios puertos.
+
+Debemos redirigir los puertos del contenedor a los de la computadora y lo podemos hacer al utilizar este comando:
+
+docker run -d --name server -p puerto_en_mi_host:puerto_en_contenedor nombreDelContenedor
+
+
+## Datos persistentes
+
+-    docker run --name <nombre_contenedor> -d -v <path_en_host>:<path_del_contenedor> <nombre_de_la_imagen> = Persiste la información en el ciclo de vida de un contenedor
+
+Esto puede ser peligroso porque expone el contenedor a modificaciones externas. Para evitar esto existen los volúmenes.
+
+Crear volúmenes en el host (Mejorado)
+
+-    docker volume create <nombre del volumen> = Crea un volumen
+-    docker run -d --name <nombre del contenedor> --mount src=<nombre del volumen>,dst= <path_del_contenedor> <nombre_de_la_imagen> = Junta el volumen con el contenedor
+
+Ej:docker volume create dbdata
+Ej:docker run -d --name mongo-db --mount src=dbdata,dst=/data/db mongo
+
+
+## Imagenes
+
+-    docker image ls = Ver imágenes descargadas en el host
+-    docker pull <nombre de la imagen> = Descargar imágenes en el host imágenes descargadas en el host
+
+Ej: docker pull redis
+Ej: docker pull ubuntu:18.04 descargando una version en particular
+
+
+
+-    docker image ls = para obtener el id de la imagen
+-    docker rmi -f <nombre_contenedor> = Eliminar imágenes descargadas en el host
+	* -f => forzar
+
+Ej: docker rmi -f 93fd78260bd1
+
+
+## DOCKERFILE
+
+-    docker build -t <nombre_imagen> <ubicacion_dockerfile>
+-    Comandos DOCKERFILE:
+	* FROM <imagen> = Imagen inicial
+	* COPY [<path de los archivos a copiar>, <path donde van a quedar los archivos copiados>] = Copia los archivos en el destino
+	* WORKDIR <path> = Ruta de trabajo (similar a cd)
+	* RUN <comando> = Ejecuta un comando
+	* EXPOSE <port> = Indica que puerto expone al exterior
+	* CMD [<arg1>, <arg2>, <arg3>] = Ejecuta un comando
+
+
+## Redes en docker
+
+*Borrar una redes en docker*
+-    docker network rm <nombre de la red>
+Ej: docker network rm platzinet
+
+*Crear una redes en docker*
+-    docker network create --attachable <nombre de la red>
+	* --attachable es para que otros contenedores se puedan unir a esta red
+Ej: docker network create --attachable platzinet
+
+*Ver redes disponibles docker*
+-    docker network ls
+	* `bridge` red por defecto y se conectan con un keyword 'link' esta en desuso, compatibilidad (deprecated)
+	* `host` simula la red del computador que corre docker (no usar porque pone en peligro)
+	* `none` hacer que tenga el network desabilitado
+
+*Ver contenedores en un red*
+-    docker network inspect <nombre de la red>
+Ej: docker network inspect platzinet
+
+*Detallar la busqueda*
+-    docker network inspect -f '{{.Containers}}' platzinet
+
+*Unir un contenedor a la red creada*
+-    docker network connect <nombre de la red> <nombre del contenedor>
+Ej: docker network connect platzinet db
+docker run -d --name app -p 3000:3000 --env MONGO_URL=mongodb://db:27017/test platziapp
+	* --env variable de entorno
+	* `db` es el nombre del contenedor sin necesidad de pasar la ip del contenedor para la conexión

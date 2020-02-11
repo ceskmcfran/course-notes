@@ -1,0 +1,16 @@
+-    docker-compose up = Levanta y buildea los contenedores
+-    docker-compose down = Para los contenedores y los borra incluyendo el network
+-    docker-compose start = Levanta (sin buildear) los contenedores
+-    docker-compose stop = Para (sin borrar) los contenedores
+-    docker-compose exec <nombre del contenedor> bash
+Ej: docker-compose exec app bash
+
+-    docker-compose logs = Ver logs de los contenedores montados con docker-compose
+-    docker-compose logs <keyword> = Ver los logs filtrando por servicio
+	* -f = "Follow" sigue los logs por la terminal a tiempo real
+Ej: docker-compose logs app
+
+-    docker-compose ps (Ver el status de docker-compose)
+-    docker-compose up -d = Ejecutar contenedores en segundo plano docker-compose (No muestra el output)
+	* -d = —detach Corre en segundo plano
+

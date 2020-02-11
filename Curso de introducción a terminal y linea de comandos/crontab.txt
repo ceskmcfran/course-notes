@@ -1,0 +1,13 @@
+Una de las herramientas más potentes de los sistemas UNIX, que nos permite programar la ejecución de diferentes scripts. Con crontab podemos agendar todo lo que necesitemos para facilitar nuestro trabajo y automatizar tareas.
+contrab -l despliega el crontab que tenemos instalado. Cada una de las primeras 5 columnas que tenemos al correr este comando especifica en qué momento exacto queremos que se ejecute la tarea que vamos a definir en la sexta columna.
+
+Columna 1: minuto 0-59
+Columna 2: hora 0-23
+Columna 3: día del mes 1-31
+Columna 4: mes 1-12
+Columna 5: día de la semana 0-7 (donde 0 y 7 equivalen a domingo)
+Columna 6: script o comando que queremos que se ejecute
+
+crontab -e: edita las tareas que tengo agendadas. Con la letra i podemos escribir.
+
+Recuerda que el crontab se ejecuta si y solo si la computadora está encendida."

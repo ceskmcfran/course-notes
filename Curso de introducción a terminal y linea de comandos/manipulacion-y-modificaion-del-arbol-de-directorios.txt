@@ -1,0 +1,10 @@
+Ya vimos cómo navegar dentro del árbol de directorios. En esta clase vamos a ver cómo crearlos y modificarlos.
+    mkdir: crea un directorio
+    touch: crea un archivo. Si no existe el archivo lo va a crear, y si existe le cambia la fecha de modificación
+    mv: mueve un archivo, te ayuda a modificarlo
+    rm: elimina archivos o links, no funciona para eliminar un directorio, para esto necesitas un poco más
+    rm -rf: elimina un directorio recursivamente
+    man: es el manual de la terminal, puedes utilizarlo cuando tu quieras para entender qué hace un comando y sus banderas. Con espacio pasas una página, - con b te regresas una página y con q sales del manual.
+    cp: copia un archivo a otros directorios
+    pushd y popd: te permiten navegar entre dos directorios fácilmente.
+

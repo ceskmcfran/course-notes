@@ -1,0 +1,52 @@
+Cada vez que abrimos la terminal en realidad se está ejecutando un programa que se llama .bash_profile que es una serie de comandos que da de alta unas variables.
+
+Todos los ejecutables tienen una serie de permisos. Cada vez que tengo un nuevo programa tengo que asegurarme
+
+    alias: ejecuta una serie de comandos que le pasas antes, funciona para crear variables.
+
+En Mac el archivo .bash_profile no existe.
+Para crearlo tenemos que estar en el directorio home y escribir:
+touch .bash_profile
+
+Para editar el archivo .bash_profile escribimos:
+open .bash_profile
+esto abre la app TextEdit y carga el archivo.
+
+Si queremos que cargue inmediatamente los cambios que hicimos en el archivo .bash_profile escribimos:
+. .bash_profile
+
+O cerramos la terminal y la volvemos a abrir. Haciendo esto carga lo que este definido en .bash_profile
+
+Los archivos ~/.bashrc, ~/bash_profile, /etc/bashrc, /etc/profile. Cual utilizar?
+Descripción del uso de los archivos ~/.bashrc, ~/bash_profile, /etc/bashrc, /etc/profile
+NOTA: ~ significa la ruta al directorio personal (Ej:"/home/juanito" es lo mismo que “~” para juanito)
+Dicho de otra forma contiene lo mismo que la variable $HOME
+
+Estos cuatro archivos tienen en común que:
+
+*Son ficheros de texto.
+
+*Se pueden modificar con cualquier editor de texto como kwrite, emacs, vi, pico…
+
+*Son shell scripts. También llamados guiones o archivos por lotes. ( Lo que en windows son los archivos *.bat o *.cmd pero mucho, mucho más potente)
+*Son ficheros que el sistema operativo ejecuta de forma automática cuando se da una cierta condición.
+
+*En el fondo lo que hace el sistema operativo es mandar a bash (el programa interprete de comandos más usual de Linux) ejecutar los archivos.
+
+*Podemos incluir en ellos cualquier orden de la linea de comandos.
+Suelen confundir al personal. De hecho hay bastante confusión circulando.
+
+Lo más importante. Cual de ellos utilizar:
+Podemos clasificar estos cuatro archivos en función de si los comandos que contienen afectan a un solo usuario o contrariamente todos los usuarios del sistema se ven afectados.
+
+Vamos a ver en cada uno de los casos, bajo que condiciones se ejecutan los archivos.
+
+Para todos los usuarios: (Se necesita permisos de root para editar/modificar estos archivos)
+
+/etc/profile --> Se ejecuta cuando cualquier usuario inicia la sesión.
+/etc/bashrc --> Se ejecuta cada vez que cualquier usuario ejecuta el programa bash
+
+Para nuestro usuario:
+
+~/.bash_profile --> Se ejecuta el .bash_profile de juanito cuando juanito inicia su sesión.
+~/.bashrc --> Se ejecuta el .bashrc de juanito cuando juanito ejecuta el programa bash.
